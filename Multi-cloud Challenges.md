@@ -3,25 +3,24 @@
 ## Table of Contents
 - [Use Cases of Multiple Clouds](#use-cases-of-multiple-clouds)
 - [Interoperability](#interoperability)
-- [Types and Targets of Cloud Interoperability](#types-and-targets-of-cloud-interoperability)
-	- [Agreement level](#agreement-level)
-	- [Adoption level](#adoption-level)
-	- [Deployment level](#deployment-level)
-	- [Patterns of interactions between clouds](#patterns-of-interactions-between-clouds)
-	- [Targeted levels for cloud interoperability](#targeted-levels-for-cloud-interoperability)
-- [On the Interoperability in Multiple Clouds](#on-the-interoperability-in-multiple-clouds)
-	- [Interoperability Requirements](#interoperability-requirements)
-	- [Example](#example)
+	- [Types and Targets of Cloud Interoperability](#types-and-targets-of-cloud-interoperability)
+		- [Agreement level](#agreement-level)
+		- [Adoption level](#adoption-level)
+		- [Deployment level](#deployment-level)
+		- [Patterns of interactions between clouds](#patterns-of-interactions-between-clouds)
+		- [Targeted levels for cloud interoperability](#targeted-levels-for-cloud-interoperability)
+	- [On the Interoperability in Multiple Clouds](#on-the-interoperability-in-multiple-clouds)
+		- [Interoperability Requirements](#interoperability-requirements)
+		- [Example](#example)
 - [Cloud Portability](#cloud-portability)
-- [Types of Cloud Portabiity](#types-of-cloud-portabiity)
-- [Requirements of portability at different deployment levels](#requirements-of-portability-at-different-deployment-levels)
+	- [Portability Taxonomy](#portability-taxonomy)
+	- [Types of Cloud Portability](#types-of-cloud-portability)
+	- [Requirements of portability at different deployment levels](#requirements-of-portability-at-different-deployment-levels)
+	- [Current solutions for Cloud portability](#current-solutions-for-cloud-portability)
 - [Main Requirements for Cloud Interoperability and Portability](#main-requirements-for-cloud-interoperability-and-portability)
 - [Approaches to Cloud Interoperability and Portability](#approaches-to-cloud-interoperability-and-portability)
-- [The above APIs for multiple clouds can be classified as follows:](#the-above-apis-for-multiple-clouds-can-be-classified-as-follows)
-	- [The two widely adopted standards are:](#the-two-widely-adopted-standards-are)
-	- [Technical requirements versus standards:](#technical-requirements-versus-standards)
-	- [Different layers of abstractions are used for example in the case of:](#different-layers-of-abstractions-are-used-for-example-in-the-case-of)
 - [References](#references)
+
 
 ---
 
@@ -150,11 +149,29 @@ Secure multi-cloud network architectures take into account:
 
 > **Cloud portability** is the **ability to move an application or data from one cloud service provider to another without the need to rewrite or restructure them**. For cloud data portability, the information can be moved to another service provider without reentering it.
 
-### Types of Cloud Portabiity
+### Portability Taxonomy
+![](images/cloud-portability.png)
+
+**1. Implementation perspective:** is related to portability constraints that are implementation-specific requirements or restrictions, e.g. deployment descriptors, restricted usage of runtime APIs or specific management API calls.
+
+**2. Ecosystem perspective:** describes concrete portability constraints including application specific dependencies like runtimes and specific services.
+
+**3. Business perspective:** is the most abstract perspective and includes business relevant, non-functional and abstract constraints on portability, like pricing, compliance or SLAs.
+
+**Measuring the Portability** </br>
+The porting process is build from various tasks:
+1. rewrite and recompile codes in case of the applications and services;  </br>
+2. re-structure data and applications;  </br>
+3. re-configure services;  </br>
+4. transfer data, applications, services or machine images between Clouds.
+
+If these tasks are straightforward or automated, the degree of portability is high. If these tasks are requiring timely human effort, the degree of portability is low.
+
+### Types of Cloud Portability
 
 – **_Functional portability_**: ability to **define application functionality QoS details in a platform-agnostic manner**. OVF provides a basis for portability but does not address complex configuration or interactions with any supporting systems. Domain specific languages are expected to bridge the gap between executable artifacts and high-level semantic models.
 
-– **_Data portability_:** ability for a customer to **retrieve application data from one provider and import this into an equivalent application hosted by another provider**. Achieving data portability depends on standardization of data im- port and export functionality between providers. It is necessary to provide a platform-independent data representation, and generate the specific target representations and even the code for the application’s data access layer;
+– **_Data portability_:** ability for a customer to **retrieve application data from one provider and import this into an equivalent application hosted by another provider**. Achieving data portability depends on standardization of data import and export functionality between providers. It is necessary to provide a platform-independent data representation, and generate the specific target representations and even the code for the application’s data access layer;
 
 – **_Services enhancement_:** **use metadata added through annotations**. Control APIs allow infrastructure to be added, reconfigured, or removed in real time, either by humans or programmatically based on traffic, outages or other factors.
 
@@ -165,6 +182,34 @@ Secure multi-cloud network architectures take into account:
 – **PaaS:** some degree of application modification will be necessary to achieve portability. The focus is on **minimizing the amount of application rewriting while preserving or enhancing controls, and a successful data migration**. Portability is evaluated based on proprietary or open source programming languages for application development, proprietary or open data formats, tight integration or loose coupled services, abstraction layers for queuing and messaging services.
 
 – **IaaS:** the applications and the data migrate and run at a new cloud provider. **Portability is evaluate based on ability to port VMs and the underlying configurations across infrastructure providers.**
+
+### Current solutions for Cloud portability
+Cloud portability is currently achieved through open standards, protocols, widely used APIs or through abstraction layers which decouple application development from specific target Clouds. 
+
+![](images/Portabilit-Requirements.png)
+
+Gonidis and Silva suggested that there are three types of solutions for the Cloud portability problem: </br>
+1. adoption of existing or emerging standards and protocols (like ***TOSCA, CDMI, OCCI, OVF***); 
+2. usage of intermediary layers (like ***jClouds*** or ***mOSAIC***);  
+3. adoption of semantics and model-based solutions.
+
+**The technical solutions for the portability have evolve in time, and three main stages are visible:** </br>
+– ***Stage 1:*** The virtual machine portability: the export and import of virtual machines, with the introduction of Open Virtualization Format (OVF) standard.
+
+– ***Stage 2:*** The networked virtual machine portability: virtual machines together with their network settings are moved between Clouds.
+
+– **Stage 3:** The data, application, and services portability: the portability issues are focusing on the storage and as well as APIs and grouping on-demand.
+
+**Standards, reference architectures, open group proposals**
+
+![](images/Standards-reference-architectures-open-group-proposals%201.png)
+
+![](images/Standard-initiatives%201.png)
+![](images/Open-source-libraries-that-support-a-certain-degree-of-portability.png)
+
+![](images/Open-source-tool-or-service-that-support-a-certain-degree-of-portability.png)
+
+![](images/Implementations-of-semantic-concept-for-ensuring-portability.png)
 
 ## Main Requirements for Cloud Interoperability and Portability
 
@@ -279,6 +324,5 @@ Domain specific languages provide a cloud neutral application creation strategy.
 
 2. D. Petcu, “Portability and Interoperability between Clouds: Challenges and Case Study,” pp. 62–74, Jan. 2011, doi: https://doi.org/10.1007/978-3-642-24755-2_6.
 
-‌
-
+3. D. Petcu and A. V. Vasilakos, “Portability in clouds: approaches and research opportunities,” vol. 15, no. 3, Oct. 2014, doi: https://doi.org/10.12694/scpe.v15i3.1019.
 ‌
